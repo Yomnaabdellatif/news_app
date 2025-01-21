@@ -25,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     var themeProvider= Provider.of<AppThemeProvider>(context);
+    //todo change var value islight
     bool isLight= themeProvider.appTheme==ThemeMode.light;
     return Scaffold(
 

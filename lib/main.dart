@@ -7,15 +7,18 @@ import 'package:news_app/ui/splash_screen.dart';
 import 'package:news_app/utilities/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-void main() {
+
+void main()  async{
+  WidgetsFlutterBinding.ensureInitialized();
+
   final languageProvider = AppLanguageProvider();
   final themeProvider = AppThemeProvider();
+   languageProvider.loadLanguage();
+   themeProvider.loadTheme();
   runApp(
       MultiProvider(providers: [
         ChangeNotifierProvider(create: (context)=>languageProvider),
         ChangeNotifierProvider(create: (context)=>themeProvider),
-
-
 
       ],
 
@@ -42,7 +45,6 @@ class MyApp extends StatelessWidget{
       {
         SplashScreen.routeName :(context)=> SplashScreen(),
         HomeScreen.routeName :(context)=> HomeScreen(),
-        CategoryDetails.routeName :(context)=> CategoryDetails(),
 
 
       },

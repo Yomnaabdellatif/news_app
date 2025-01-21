@@ -5,6 +5,7 @@ static const String iconRoller="assets/images/roller_icon.png";
 static const String iconHome="assets/images/home_icon.png";
 static const String splashLight="assets/images/Splash_light.png";
 static const String splashDark="assets/images/Splash_dark.png";
+
 static const String generalDark="assets/images/general_dark.png";
 static const String generalLight="assets/images/general_light.png";
 static const String healthDark="assets/images/health_dark.png";
@@ -18,6 +19,6 @@ static const String sportsLight="assets/images/sports_light.png";
 static const String technologyDark="assets/images/Technology_dark.png";
 static const String technologyLight="assets/images/technology_light.png";
 static const String businessDark="assets/images/business_dark.png";
-static const String businessLight="assets/images/business_dark.png";
+static const String businessLight="assets/images/business_light.png";
 
 }

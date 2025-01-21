@@ -12,7 +12,7 @@ class SourceNameItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(source.name??"",style: isSelected?
        Theme.of(context).textTheme.labelLarge
-        :       Theme.of(context).textTheme.labelMedium
+        :Theme.of(context).textTheme.labelMedium
 
     );
   }
