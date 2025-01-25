@@ -7,8 +7,7 @@ class CategoryModel{
   String title;
   String imagePath;
   CategoryModel({required this.id,required this.title,required this.imagePath});
-  static List<CategoryModel> getCategoreisList(bool isDark,BuildContext context){
-    //   health science sports technology
+  static List<CategoryModel> getCategoriesList(bool isDark,BuildContext context){
     return [
       CategoryModel(id: "general", title: AppLocalizations.of(context)!.general,
           imagePath: isDark? AssetsManager.generalLight:AssetsManager.generalDark),

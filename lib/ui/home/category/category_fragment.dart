@@ -14,7 +14,7 @@ CategoryFragment({required this.onViewAllClicked});
   @override
   Widget build(BuildContext context) {
     var themeProvider= Provider.of<AppThemeProvider>(context);
-    var categoriesList=CategoryModel.getCategoreisList( themeProvider.isDarkMode(),context);
+    var categoriesList=CategoryModel.getCategoriesList( themeProvider.isDarkMode(),context);
     var height=MediaQuery.of(context).size.height;
     var width=MediaQuery.of(context).size.width;
     return  Container(
