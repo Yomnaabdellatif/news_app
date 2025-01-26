@@ -10,7 +10,16 @@
 "news_app":"News App",
 "welcome_message":"Good Morning Here is Some News For You",
 "view_all":"View All",
-"view_all_article":"View Full Article"
+"view_all_article":"View Full Article",
+"by":"By",
+"general":"General",
+"business":"Business",
+"sports":"Sports",
+"technology":"Technology",
+"science":"Science",
+"health":"Health",
+"entertainment":"Entertainment"
+
 
 
 }

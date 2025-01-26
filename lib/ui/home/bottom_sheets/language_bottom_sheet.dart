@@ -28,7 +28,8 @@ class _LanguageBottomSheetState extends State<LanguageBottomSheet> {
             languageProvider.changeLanguage("en");
 
           },
-            child:    languageProvider.appLanguage=="en" ?
+            child:
+            languageProvider.appLanguage=="en" ?
             getSelectedItemWidget(AppLocalizations.of(context)!.english)
                 :
             getUnSelectedItemWidget(AppLocalizations.of(context)!.english)

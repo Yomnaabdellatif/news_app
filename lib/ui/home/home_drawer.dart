@@ -10,9 +10,10 @@ import 'bottom_sheets/language_bottom_sheet.dart';
 import 'bottom_sheets/theme_bottom_sheet.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ShowDrawer extends StatelessWidget {
-  const ShowDrawer({super.key});
+class HomeDrawer extends StatelessWidget {
+  Function onDrawerItem;
 
+  HomeDrawer({required this.onDrawerItem});
   @override
   Widget build(BuildContext context) {
     var height=MediaQuery.of(context).size.height;
@@ -21,7 +22,6 @@ class ShowDrawer extends StatelessWidget {
     var themeProvider= Provider.of<AppThemeProvider>(context);
     bool isEnglish=languageProvider.appLanguage=="en";
     // bool isLight=!themeProvider.isDarkMode();
-
     return Column(
       children:
       [
@@ -30,6 +30,7 @@ class ShowDrawer extends StatelessWidget {
           child: Text( AppLocalizations.of(context)!.news_app,style: AppStyles.bold24Black,),),
         InkWell(onTap: (){
           //todo function
+          onDrawerItem();
         },
             child: TextWithIconDrawer(text: AppLocalizations.of(context)!.go_to_home ,icon: AssetsManager.iconHome,)),
         Divider(color: AppColors.white,indent: width*(16/393),endIndent:  width*(16/393),),

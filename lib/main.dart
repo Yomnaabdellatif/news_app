@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/providers/app_language_provider.dart';
 import 'package:news_app/providers/app_theme_provider.dart';
 import 'package:news_app/ui/home/category/category_details.dart';
 import 'package:news_app/ui/home/home_screen.dart';
 import 'package:news_app/ui/splash_screen.dart';
 import 'package:news_app/utilities/app_theme.dart';
+import 'package:news_app/utilities/bloc_observer.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-void main() {
+
+void main()  async{
+  Bloc.observer = MyBlocObserver();
+
+  WidgetsFlutterBinding.ensureInitialized();
+
   final languageProvider = AppLanguageProvider();
   final themeProvider = AppThemeProvider();
+   languageProvider.loadLanguage();
+   themeProvider.loadTheme();
   runApp(
       MultiProvider(providers: [
         ChangeNotifierProvider(create: (context)=>languageProvider),
         ChangeNotifierProvider(create: (context)=>themeProvider),
-
-
 
       ],
 
@@ -42,7 +49,6 @@ class MyApp extends StatelessWidget{
       {
         SplashScreen.routeName :(context)=> SplashScreen(),
         HomeScreen.routeName :(context)=> HomeScreen(),
-        CategoryDetails.routeName :(context)=> CategoryDetails(),
 
 
       },
