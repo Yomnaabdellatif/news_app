@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/api/api_manger.dart';
 import 'package:news_app/model/category_model.dart';
-import 'package:news_app/ui/home/category/category_details_view_model.dart';
+import 'package:news_app/ui/home/category/cubit/source_states.dart';
+import 'package:news_app/ui/home/category/cubit/source_view_model.dart';
 import 'package:news_app/ui/home/category/source_tab_widget.dart';
 import 'package:news_app/utilities/app_colors.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +18,7 @@ CategoryDetails({required this.category});
 
 class _CategoryDetailsState extends State<CategoryDetails> {
 
-  var viewModel=CategoryDetailsViewModel();
+  var viewModel=SourceViewModel();
   @override
   void initState() {
     // TODO: implement initState
@@ -25,32 +27,35 @@ class _CategoryDetailsState extends State<CategoryDetails> {
   }
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return  BlocProvider(
       create: (context)=>viewModel,
-      child: Consumer<CategoryDetailsViewModel>(builder: (context,viewModel,child){
-        if(viewModel.errorMassage!=null){
-          return Center(
-            child: Column(children: [
-                        Text(viewModel.errorMassage!,style: Theme.of(context).textTheme.labelMedium),
-                        TextButton(onPressed: (){
+      child: BlocBuilder<SourceViewModel,SourceStates>(builder:(context,state){
 
-                          viewModel.getSources(widget.category.id);
+         if(state is SourceErrorState){
+                return Center(
+                  child: Column(children: [
+                              Text(state.errorMessage,style: Theme.of(context).textTheme.labelMedium),
+                              TextButton(onPressed: (){
 
-                        },style:OutlinedButton.styleFrom(backgroundColor: AppColors.gray)
-                            , child: Text("TRY AGAIN",style: Theme.of(context).textTheme.labelLarge))
-                      ],),
-          );
+                                viewModel.getSources(widget.category.id);
+
+                              },style:OutlinedButton.styleFrom(backgroundColor: AppColors.gray)
+                                  , child: Text("TRY AGAIN",style: Theme.of(context).textTheme.labelLarge))
+                            ],),
+                );
 
         }
-        else if(viewModel.sourceList==null){
-          return  const Center(child: CircularProgressIndicator(color: AppColors.gray,),);
-        }
-        else{
-          return SourceTabWidget(sourcesList:viewModel.sourceList!);
-        }
+        else if (state is SourceSuccessState){
+          return SourceTabWidget(sourcesList:state.sourceList);
 
-      },)
+        }
+         else{
+       return  const Center(child: CircularProgressIndicator(color: AppColors.gray,),);
+         }
 
+
+        }
+      ),
     );
   }
 }
