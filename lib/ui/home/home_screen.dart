@@ -11,6 +11,8 @@ import 'package:provider/provider.dart';
 
 import '../../model/NewsResponse.dart';
 import '../../providers/app_theme_provider.dart';
+import 'bottom_sheets/show_article_in_bottom_sheet.dart';
+import 'news/news_item.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,23 +26,26 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isSearch=false;
   List<News>? newsSearch;
   TextEditingController searchController=TextEditingController();
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   searchController.addListener(() async {
+  //     if (searchController.text.isEmpty) {
+  //       setState(() {
+  //         newsSearch = [];
+  //       });
+  //     } else {
+  //       var response = await ApiManger.getNewsBySourceIdWithSearch(context, query: searchController.text,);
+  //       newsSearch = response?.articles;
+  //       setState(() {
+  //       });
+  //     }
+  //   });
+  // }
+
+
   @override
-
-  void initState() {
-    super.initState();
-    searchController.addListener(() {
-      if (searchController.text.isEmpty) {
-        setState(() {
-          newsSearch = [];
-        });
-      }
-      else{
-        ApiManger.getNewsBySourceIdWithSearch( context,query:searchController.text );
-
-
-      }
-    });
-  }  @override
   Widget build(BuildContext context) {
     var themeProvider= Provider.of<AppThemeProvider>(context);
     var categoriesList=CategoryModel.getCategoriesList( themeProvider.isDarkMode(),context);
@@ -54,40 +59,41 @@ class _HomeScreenState extends State<HomeScreen> {
       selectedCategory==null?AppLocalizations.of(context)!.home:
       categoriesList.firstWhere((category) => category.id == selectedCategory!.id).title
       ,style: Theme.of(context).textTheme.headlineLarge,):
-        Container(height: height*(62/852),
-          width: width*(361/393),
-          child:
-          TextField(style: Theme.of(context).textTheme.titleMedium,
-            controller:searchController ,
-            decoration:
-            InputDecoration(
-              hintText: AppLocalizations.of(context)!.search,
-              hintStyle:Theme.of(context).textTheme.titleMedium ,
-              suffixIcon:IconButton(onPressed: (){
-                isSearch=false;
-                setState(() {
-                });
-              },icon: Icon(Icons.close,color: Theme.of(context).indicatorColor,),)
-              ,prefixIcon:Image.asset(AssetsManager.iconSearch,color: Theme.of(context).indicatorColor,) ,
-              disabledBorder:Theme.of(context).inputDecorationTheme.disabledBorder,
-              focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
-              enabledBorder:Theme.of(context).inputDecorationTheme.enabledBorder ,)
-            ,),
-        )
-      , 
-      actions: [
-      Padding(
-        padding: EdgeInsets.symmetric(horizontal: width*(16/393)),
-        child:
-        InkWell(
-          onTap: (){
-            isSearch=true;
+    Container(height: height*(62/852),
+      width: width*(361/393),
+      child:
+      TextField(style: Theme.of(context).textTheme.titleMedium,
+        controller:searchController ,
+        decoration:
+        InputDecoration(
+          hintText: AppLocalizations.of(context)!.search,
+          hintStyle:Theme.of(context).textTheme.titleMedium ,
+          suffixIcon:IconButton(onPressed: (){
+            isSearch=false;
+            searchController.clear();
             setState(() {
-
             });
-          },
-            child: Image.asset(AssetsManager.iconSearch,color: Theme.of(context).appBarTheme.iconTheme!.color,))
-      )],scrolledUnderElevation: 0,),
+          },icon: Icon(Icons.close,color: Theme.of(context).indicatorColor,),)
+          ,prefixIcon:Image.asset(AssetsManager.iconSearch,color: Theme.of(context).indicatorColor,) ,
+          disabledBorder:Theme.of(context).inputDecorationTheme.disabledBorder,
+          focusedBorder: Theme.of(context).inputDecorationTheme.focusedBorder,
+          enabledBorder:Theme.of(context).inputDecorationTheme.enabledBorder ,)
+        ,),
+    )
+      ,
+      actions: [
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: width*(16/393)),
+            child:
+            InkWell(
+                onTap: (){
+                  isSearch=true;
+                  setState(() {
+
+                  });
+                },
+                child: Image.asset(AssetsManager.iconSearch,color: Theme.of(context).appBarTheme.iconTheme!.color,))
+        )],scrolledUnderElevation: 0,),
       drawer:
       Drawer(child: HomeDrawer(onDrawerItem: onDrawerItem,),backgroundColor: AppColors.black,width:width*(269/393) ,) ,
 
@@ -98,6 +104,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
       ,);
   }
+
+
+
 
   CategoryModel? selectedCategory;
 
@@ -115,6 +124,13 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
 
     });
+
+
+  }
+  void showBottomSheet(BuildContext context,Widget widget) {
+    showModalBottomSheet(backgroundColor: AppColors.transparent,
+        context: context,
+        builder: (context)=>widget);
 
 
   }

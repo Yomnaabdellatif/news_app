@@ -62,7 +62,8 @@ class _NewsWidgetState extends State<NewsWidget> {
                 (context,index){
 
 
-              return InkWell(onTap: (){
+              return
+                InkWell(onTap: (){
                 showBottomSheet(context,
                     ShowArticleInBottomSheet(articleList: newsList, index: index));
               },
