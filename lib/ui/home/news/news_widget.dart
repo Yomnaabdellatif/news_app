@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/di/di.dart';
 import 'package:news_app/model/SourceResponse.dart';
 import 'package:news_app/ui/home/bottom_sheets/show_article_in_bottom_sheet.dart';
 import 'package:news_app/ui/home/news/cubit/news_states.dart';
@@ -17,7 +18,7 @@ NewsWidget({required this.source});
   State<NewsWidget> createState() => _NewsWidgetState();
 }
 class _NewsWidgetState extends State<NewsWidget> {
-  var viewModel=NewsViewModel();
+  var viewModel=NewsViewModel(newsRepository: injectNewsRepository());
   @override
   void initState() {
     // TODO: implement initState

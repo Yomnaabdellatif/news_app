@@ -1,7 +1,6 @@
 import '../../../../model/SourceResponse.dart';
 
 abstract class SourceStates {}
-class InitialState extends SourceStates{}
 class   SourceLoadingState extends SourceStates{}
 class   SourceErrorState  extends SourceStates{
   String errorMessage;

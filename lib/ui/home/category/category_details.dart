@@ -8,6 +8,8 @@ import 'package:news_app/ui/home/category/source_tab_widget.dart';
 import 'package:news_app/utilities/app_colors.dart';
 import 'package:provider/provider.dart';
 
+import '../../../di/di.dart';
+
 class CategoryDetails extends StatefulWidget {
 CategoryModel category;
 CategoryDetails({required this.category});
@@ -18,7 +20,7 @@ CategoryDetails({required this.category});
 
 class _CategoryDetailsState extends State<CategoryDetails> {
 
-  var viewModel=SourceViewModel();
+  var viewModel=SourceViewModel(sourceRepository: injectSourceRepository());
   @override
   void initState() {
     // TODO: implement initState
